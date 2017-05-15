@@ -1,4 +1,30 @@
-### 数据驱动图表联动
+# linkage
 
-#### 说明
-      通过数据变化改变图表组件，使其表达变化后的数据的含义。
+> 通过数据变化改变图表组件，使其表达变化后的数据的含义。
+
+## Build Setup
+
+``` bash
+# install dependencies
+npm install
+
+# serve with hot reload at localhost:8080
+npm run dev
+
+# build for production with minification
+npm run build
+
+# build for production and view the bundle analyzer report
+npm run build --report
+
+# run unit tests
+npm run unit
+
+# run e2e tests
+npm run e2e
+
+# run all tests
+npm test
+```
+
+For detailed explanation on how things work, checkout the [guide](http://vuejs-templates.github.io/webpack/) and [docs for vue-loader](http://vuejs.github.io/vue-loader).
