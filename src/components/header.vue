@@ -1,6 +1,7 @@
 <template>
   <div class="header">
     <div class="header-container">
+      <img :src="url"/>
       <a href="https://github.com/tangb-biu" target="_blank">github</a>
     </div>
   </div>
@@ -8,7 +9,21 @@
 
 <script>
 export default {
-    name: 'header'
+    name: 'header',
+    data: function() {
+      return {
+        url: '',
+      }
+    },
+    created(){
+       let canvas = document.createElement('canvas');
+       canvas.height = 60;
+       canvas.width = 100;
+       let ctx = canvas.getContext('2d');
+       ctx.fillRect(20, 20, 80, 20);
+       this.url = canvas.toDataURL();
+       console.log('aaaaa');
+    }
 }
 </script>
 
@@ -33,5 +48,10 @@ export default {
 }
 a:link, a:visited {
   text-decoration: none;
+}
+img {
+  height: 100%;
+  width: 100px;
+  float: left;
 }
 </style>
