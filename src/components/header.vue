@@ -2,7 +2,7 @@
   <div class="header" :style="styleObject">
     <div class="header-container">
       <!-- <img :src="url"/> -->
-      <a href="https://github.com/tangb-biu" target="_blank">github</a>
+      <a href="https://github.com/tangb-biu/linkage" target="_blank">github</a>
     </div>
   </div>
 </template>
