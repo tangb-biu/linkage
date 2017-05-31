@@ -3,10 +3,14 @@
 		<HeaderItem></HeaderItem>
 		<div class="content row">
 			<div class="col-md-4">
-				<PolyLineItem></PolyLineItem>
+				<PolylineItem></PolylineItem>
 			</div>
-			<div class="col-md-4"></div>
-			<div class="col-md-4"></div>
+			<div class="col-md-4">
+				<PieItem></PieItem>
+			</div>
+			<div class="col-md-4">
+				<PolylineArea></PolylineArea>
+			</div>
 		</div>
 		<FooterItem></FooterItem>
 	</div>
@@ -15,14 +19,18 @@
 <script>
 import HeaderItem from '@/components/header'	
 import FooterItem from '@/components/footer'
-import PolyLineItem from '@/components/polyline'
+import PolylineItem from '@/components/polyline'
+import PieItem from '@/components/pie'
+import PolylineArea from '@/components/polylineArea'
 
 export default {
 	name: 'home',
 	components: {
 		HeaderItem,
 		FooterItem,
-		PolyLineItem
+		PolylineItem,
+		PieItem,
+		PolylineArea
 	},
 	data: function () {
 		return {

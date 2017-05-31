@@ -98,9 +98,10 @@ export default {
   border-bottom: 1px solid #bbb;
 }
 .header-container{
+  position: absolute;
   width:60%;
   height:60px;
-  margin: 0 auto;
+  margin: 0 0 0 300px;
 }
 .header-container a{
   color: /*#17abcb*/#fff;
@@ -108,7 +109,6 @@ export default {
   font-size: 18px;
   width: 100px;
   margin-top: 17px;
-  z-level: 101;
 }
 a:link, a:visited {
   text-decoration: none;
