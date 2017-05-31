@@ -5,6 +5,7 @@ import App from './App'
 import router from './router'
 import store from './store/'
 import './style/common.less'
+import './style/bootstrap.min.css'
 
 
 Vue.config.productionTip = false

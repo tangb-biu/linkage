@@ -3,6 +3,7 @@
     <div class="header-container">
       <!-- <img :src="url"/> -->
       <a href="https://github.com/tangb-biu/linkage" target="_blank">github</a>
+      <!-- <canvas id="J_image"></canvas> -->
     </div>
   </div>
 </template>
@@ -15,7 +16,7 @@ export default {
         url: '',
         styleObject: {
           'background-size': '100%',
-          'background-postion': 'center',
+          'background-position': 'center',
           'background-repeat': 'no-repeat',
           'background-image': '',
           'background-color': '#222'
@@ -23,14 +24,18 @@ export default {
       }
     },
     created(){
-        let self = this;
-        let canvas = document.createElement('canvas');
-        let particleIndex = 0;
-        let particles = {};
-        canvas.height = 60;
-        canvas.width = window.innerWidth;
-        let ctx = canvas.getContext('2d');
-          function Particle() {
+        
+    },
+    mounted() {
+      let self = this;
+      let canvas = document.createElement('canvas');
+      let particleIndex = 0;
+      let particles = {};
+      canvas.height = 60;
+      canvas.width = window.innerWidth;
+      let ctx = canvas.getContext('2d');
+      class Particle {
+        constructor() {
           particleIndex ++;
           particles[particleIndex] = this;
 
@@ -44,42 +49,43 @@ export default {
           this.size = 1;
           this.color = getRandomColor();
         }
+      }
 
-        Particle.prototype.draw = function () {
-          this.x += this.vx;
-          this.y += this.vy;
-          this.size += this.growth;
+      Particle.prototype.draw = function () {
+        this.x += this.vx;
+        this.y += this.vy;
+        this.size += this.growth;
 
-          if(this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
-            delete particles[this.id];
-          }
-
-          ctx.fillStyle = this.color;
-          ctx.beginPath();
-          ctx.arc(this.x, this.y, this.size, 2*Math.PI, false);
-          ctx.fill();
+        if(this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+          delete particles[this.id];
         }
 
-        function animate() {
-          requestAnimationFrame(animate);
+        ctx.fillStyle = this.color;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 2*Math.PI, false);
+        ctx.fill();
+      }
 
-          ctx.fillStyle = '#3b3b3b';
-          ctx.fillRect(0, 0, canvas.width,
-            canvas.height);
-
-          new Particle();
-
-          for(var i in particles) {
-            particles[i].draw();
-          }
-          self.styleObject['background-image'] = `url(${canvas.toDataURL()})`;
-
-        }
-
+      function animate() {
         requestAnimationFrame(animate);
-        function getRandomColor() {
-          return '#' + (Math.random() * 0xffffff << 0).toString(16);
+
+        ctx.fillStyle = '#3b3b3b';
+        ctx.fillRect(0, 0, canvas.width,
+          canvas.height);
+
+        new Particle();
+
+        for(var i in particles) {
+          particles[i].draw();
         }
+        self.styleObject['background-image'] = `url(${canvas.toDataURL()})`;
+      }
+
+
+      requestAnimationFrame(animate);
+      function getRandomColor() {
+        return '#' + (Math.random() * 0xffffff << 0).toString(16);
+      }
     }
 }
 </script>
@@ -102,6 +108,7 @@ export default {
   font-size: 18px;
   width: 100px;
   margin-top: 17px;
+  z-level: 101;
 }
 a:link, a:visited {
   text-decoration: none;
@@ -110,5 +117,12 @@ img {
   height: 100%;
   width: 100px;
   float: left;
+}
+#J_image {
+  position: absolute;
+  width: 100%;
+  height: 60px;
+  top: 0;
+  left: 0;
 }
 </style>
