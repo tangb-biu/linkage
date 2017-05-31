@@ -3,8 +3,8 @@
     <div class="header-container">
       <!-- <img :src="url"/> -->
       <a href="https://github.com/tangb-biu/linkage" target="_blank">github</a>
-      <!-- <canvas id="J_image"></canvas> -->
     </div>
+    <canvas id="J_image"></canvas>
   </div>
 </template>
 
@@ -28,7 +28,7 @@ export default {
     },
     mounted() {
       let self = this;
-      let canvas = document.createElement('canvas');
+      let canvas = document.querySelector('#J_image');
       let particleIndex = 0;
       let particles = {};
       canvas.height = 60;
@@ -78,7 +78,7 @@ export default {
         for(var i in particles) {
           particles[i].draw();
         }
-        self.styleObject['background-image'] = `url(${canvas.toDataURL()})`;
+        //self.styleObject['background-image'] = `url(${canvas.toDataURL()})`;
       }
 
 
@@ -119,7 +119,7 @@ img {
   float: left;
 }
 #J_image {
-  position: absolute;
+  /*position: absolute;*/
   width: 100%;
   height: 60px;
   top: 0;

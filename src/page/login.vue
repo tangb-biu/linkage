@@ -69,6 +69,8 @@ input{
     box-sizing: border-box;
     padding-left: 10px;
     line-height: 40px;
+    font-size: 18px;
+    line-height: 18px;
 }
 .btn-primary {
     color: #fff;
