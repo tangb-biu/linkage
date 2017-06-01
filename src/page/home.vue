@@ -11,6 +11,10 @@
 			<div class="col-md-4">
 				<PolylineArea></PolylineArea>
 			</div>
+			<div class="col-md-4">
+				<BarItem></BarItem>
+			</div>
+
 		</div>
 		<FooterItem></FooterItem>
 	</div>
@@ -22,6 +26,7 @@ import FooterItem from '@/components/footer'
 import PolylineItem from '@/components/polyline'
 import PieItem from '@/components/pie'
 import PolylineArea from '@/components/polylineArea'
+import BarItem from '@/components/bar'
 
 export default {
 	name: 'home',
@@ -30,7 +35,8 @@ export default {
 		FooterItem,
 		PolylineItem,
 		PieItem,
-		PolylineArea
+		PolylineArea,
+		BarItem
 	},
 	data: function () {
 		return {
@@ -52,5 +58,8 @@ export default {
 <style lang="less" scoped>
 .row {
 	margin: 0;
+}
+.content{
+	margin-bottom: 50px;
 }
 </style>

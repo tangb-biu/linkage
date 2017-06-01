@@ -21,9 +21,6 @@ export default {
 	mounted() {
 		let ec = echarts.init(this.$el);
 		let option = {
-			title: {
-		        text: 'This is chart polyline.'
-		    },
 		    tooltip: {
 		        formatter: function (params) {
 		            var data = params.data || [0, 0];
