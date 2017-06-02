@@ -20,12 +20,9 @@ export default {
 	background-color: @bg;
 	color: #969899;
 	text-align: center;
-	line-height: 50px;
-	position: fixed;
 	bottom: 0;
 }
-
 .footer-content {
-	padding-bottom:20px;
+	padding-top:10px;
 }
 </style>

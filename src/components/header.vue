@@ -92,10 +92,14 @@ export default {
 
 <style lang="less" scoped>
 .header{
+  position: fixed;
+  top:0;
   width: 100%;
   height: 60px;
   background: rgba(255, 255, 255, 0.85);
   border-bottom: 1px solid #bbb;
+  z-index: 1;
+  box-shadow: 0 0px 10px;
 }
 .header-container{
   position: absolute;

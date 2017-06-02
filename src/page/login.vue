@@ -17,14 +17,14 @@
 </template>
 
 <script>
-import headerItem from '@/components/header'
-import footerItem from '@/components/footer'
+// import headerItem from '@/components/header'
+// import footerItem from '@/components/footer'
 import common from '@/utils/common'
 export default {
 	name: 'login',
   	components: {
-  		headerItem,
-  		footerItem
+  		// headerItem,
+  		// footerItem
   	},
   	data: function() {
   		return {
@@ -54,7 +54,7 @@ export default {
 .vali-section {
 	width:600px;
 	margin: 0 auto;
-	margin-top: 200px;
+	margin-top: 20%;
 	height: 200px;
 }
 .vali-name {

@@ -60,6 +60,6 @@ export default {
 	margin: 0;
 }
 .content{
-	margin-bottom: 50px;
+	margin-top: 70px;
 }
 </style>
