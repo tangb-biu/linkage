@@ -6,7 +6,7 @@ import router from './router'
 import store from './store/'
 import './style/common.less'
 import './style/bootstrap.min.css'
-
+import mock from './api/mock'
 
 Vue.config.productionTip = false
 

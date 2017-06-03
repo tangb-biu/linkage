@@ -27,6 +27,7 @@ import PolylineItem from '@/components/polyline'
 import PieItem from '@/components/pie'
 import PolylineArea from '@/components/polylineArea'
 import BarItem from '@/components/bar'
+import patientApi from '@/api/patient'
 
 export default {
 	name: 'home',

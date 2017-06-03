@@ -6,7 +6,9 @@ import actions from './action'
 Vue.use(Vuex)
 
 const state = {
-	vcode:'cndb'
+	vcode:'cndb',
+	_cache: '',
+	data: ''
 }
 
 export default new Vuex.Store({
