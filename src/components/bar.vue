@@ -37,6 +37,7 @@ export default {
 		    grid: {
 		        right: '20%'
 		    },
+		    /*
 		    toolbox: {
 		        feature: {
 		            dataView: {show: true, readOnly: false},
@@ -44,6 +45,7 @@ export default {
 		            saveAsImage: {show: true}
 		        }
 		    },
+		    */
 		    legend: {
 		        data:['蒸发量','降水量']
 		    },
