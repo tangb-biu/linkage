@@ -28,6 +28,7 @@ import PieItem from '@/components/pie'
 import PolylineArea from '@/components/polylineArea'
 import BarItem from '@/components/bar'
 import patientApi from '@/api/patient'
+import { SET_DATA } from '@/store/mutation-types'
 
 export default {
 	name: 'home',
@@ -50,8 +51,15 @@ export default {
 	methods:{
 		
 	},
-	computed: {
+	computed:{
 		
+	},
+	mounted(){
+		let that = this;
+		patientApi.getPatients( data => {
+			console.log(data)
+			that.$store.commit(SET_DATA, data);
+		});
 	}
 }
 </script>

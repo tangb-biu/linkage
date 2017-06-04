@@ -1,7 +1,7 @@
 import Mock from 'mockjs'
 
 
-import patient from './patient'
+import { patient } from './patient'
 
 function addToMock(list) {
 	list.forEach(n => {
