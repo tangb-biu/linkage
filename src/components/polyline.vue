@@ -43,7 +43,7 @@ export default {
 			    xAxis: {
 			        type: 'category',
 			        //axisLine: {onZero: false},
-			        data: (function(){let arr = [];for(let i=1; i<=12; i++){arr.push(i+'月')}console.log(arr); return arr;}())
+			        data: (function(){let arr = [];for(let i=1; i<=12; i++){arr.push(i+'月')} return arr;}())
 			    },
 			    yAxis: {
 	        		type: 'value',
@@ -61,7 +61,6 @@ export default {
 			            symbolSize: 20,
 			            data: (function(){
 			            	var result = nest.map(n => n.value);
-			            	console.log(result)
 			            	return result;
 			            }())
 			        }

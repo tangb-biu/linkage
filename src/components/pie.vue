@@ -8,23 +8,26 @@ import echarts from 'echarts'
 import dataNest from '@/utils/nest'
 import mapState from 'vuex'
 import common from '@/utils/common'
+import {FILTER_VALUE} from '@/store/mutation-types'
 export default {
 	name: 'pie',
 
 	data () {
 
 		return {
-
+			
 		}
 	},
 
 	methods: {
 		createPieChart() {
+			let that = this;
+			let key = 'hospital';
 			let nest = dataNest()
 				.key(function(d) {
-					return d.hospital;
+					return d[key];
 				})
-				.entries(this.vdata.data);
+				.entries(this.vdata);
 			let ec = echarts.init(this.$el);
 			let option = {
 				title:{
@@ -78,13 +81,25 @@ export default {
 			    ]
 			};
 			ec.setOption(option);
+			ec.on('click', function(param){
+				that.filterData(key, param['name']);
+			});
 			this._chart = ec;
+		},
+		changeData() {
+
+		},
+		filterData(key,value) {
+			this.$store.commit(FILTER_VALUE, {
+				key: key,
+				name: value
+			});
 		}
 	},
 
 	computed: {
 		vdata: function(){
-			return this.$store.state.data;
+			return this.$store.state.data.data;
 		}
 	},
 
@@ -93,7 +108,8 @@ export default {
 	},
 
 	watch :{
-		vdata: function(newVal, oldVal) {
+		vdata: function(){
+			console.log(111111);
 			this.createPieChart();
 		}
 	}

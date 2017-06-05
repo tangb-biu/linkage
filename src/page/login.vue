@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<headerItem></headerItem>
+		<!-- <headerItem></headerItem> -->
 		<div class="content">
 			<div class="vali-section">
 				<div class="vali-area">
@@ -12,7 +12,7 @@
 				</div>
 			</div>
 		</div>
-		<footerItem></footerItem>
+		<!-- <footerItem></footerItem> -->
 	</div>
 </template>
 

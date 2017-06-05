@@ -57,7 +57,6 @@ export default {
 	mounted(){
 		let that = this;
 		patientApi.getPatients( data => {
-			console.log(data)
 			that.$store.commit(SET_DATA, data);
 		});
 	}

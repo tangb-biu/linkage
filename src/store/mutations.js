@@ -1,24 +1,13 @@
 import { FILTER_VALUE, SET_DATA } from './mutation-types'
 import { isObjectEquals } from '@/utils/common'
 export default {
-	[FILTER_VALUE](state, filterKey, filterVal) {
-		let [flag, filters] = [false, state.filters];
-		/*
-		for(let i=0; i<filters.length; i++) {
-			if(isObjectEquals(filters[i], filterObj)) {
-				flag = true;
-				break;
-			}
-		}
-		
-		*/
-
-		filters.push(filters);
-
-		state.data = state.data.filter(function(obj){
-			return obj[filterKey] == filterVal;
+	[FILTER_VALUE](state, filter) {
+		let {filters, data} = state;
+		filters.push([filter['key'], filter['name']]);
+		data['data'] = data['data'].filter(function(obj){
+			return obj[filter['key']] == filter['name'];
 		})
-
+		console.log(state.data);
 	},
 
 	[SET_DATA](state, data) {
