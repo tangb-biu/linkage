@@ -109,7 +109,6 @@ export default {
 
 	watch :{
 		vdata: function(){
-			console.log(111111);
 			this.createPieChart();
 		}
 	}
