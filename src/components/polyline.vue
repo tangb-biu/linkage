@@ -8,7 +8,7 @@ import echarts from 'echarts'
 import dataNest from '@/utils/nest'
 import common from '@/utils/common'
 import {FILTER_VALUE} from '@/store/mutation-types'
-
+import {mapActions} from 'vuex'
 export default {
 	name: 'ployline',
 	data() {
@@ -90,17 +90,16 @@ export default {
 			}
 			ec.setOption(option);
 			ec.on('click', function(param){
-				that.filterData(key, param['name']);
+				that.filterValue({
+					key, 
+					name:param['name']
+				});
 			})
 			this._chart = ec;
 		},
-		filterData(key,value) {
-			console.log(key, value, FILTER_VALUE);
-			this.$store.commit(FILTER_VALUE, {
-				key: key,
-				name: value
-			});
-		}
+		...mapActions([
+			'filterValue'
+		])
 	},
 	computed: {
 		vdata: function(){

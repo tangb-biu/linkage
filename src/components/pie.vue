@@ -9,6 +9,7 @@ import dataNest from '@/utils/nest'
 import mapState from 'vuex'
 import common from '@/utils/common'
 import {FILTER_VALUE} from '@/store/mutation-types'
+import {mapActions} from 'vuex'
 export default {
 	name: 'pie',
 
@@ -90,19 +91,20 @@ export default {
 			};
 			ec.setOption(option);
 			ec.on('click', function(param){
-				that.filterData(key, param['name']);
+				that.filterValue({
+					key,
+					name: param['name']
+				});
 			});
 			this._chart = ec;
 		},
 		changeData() {
 
 		},
-		filterData(key,value) {
-			this.$store.commit(FILTER_VALUE, {
-				key: key,
-				name: value
-			});
-		}
+		...mapActions([
+			'filterValue'
+		])
+		
 	},
 
 	computed: {
