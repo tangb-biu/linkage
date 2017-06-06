@@ -16,7 +16,7 @@ export default {
 	data () {
 
 		return {
-			
+			_chart: ''
 		}
 	},
 
@@ -108,7 +108,7 @@ export default {
 	},
 
 	computed: {
-		vdata: function(){
+		vdata(){
 			return this.$store.state.data.data;
 		}
 	},

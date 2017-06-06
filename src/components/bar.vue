@@ -5,107 +5,130 @@
 
 <script>
 import echarts from 'echarts'
+import dataNest from '@/utils/nest'
+import common from '@/utils/common'
+import {mapActions} from 'vuex'
 
 export default {
 	name: 'bar',
 
 	data(){
 		return {
+			_chart: '',
+		}
+	},
 
+	watch: {
+		vdata() {
+			this.createBarChart();
 		}
 	},
 
 	methods: {
+		createBarChart() {
+			let that = this;
+			var key1 = 'date';
+			var key2 = 'register';
+			let nest = dataNest()
+				.key((d) => {
+					return d[key1];
+				})
+				.key((d) => {
+					return d[key2];
+				})
+				.entries(this.vdata);
+			nest.sort(function(a, b){return (+a['key'].slice(0, -1)) - (+b['key'].slice(0, -1))});
+			if(this._chart){
+				this._chart.setOption({
+					series: [{
+			        	data: nest,
+			        }],
+			        xAxis: {
+				        type: 'category',
+				        //axisLine: {onZero: false},
+				        data: (function(){
+				            	var result = nest.map(n => n.name);
+				            	return result;
+				            }())
+			    	},
+				})
+				return;
+			}
+			let ec = echarts.init(this.$el);
+			let option = {
+				title: {
+					text: '病人来源'
+				},
+			    color: ['#5793f3', '#d14a61'],
+
+			    tooltip: {
+			        trigger: 'axis',
+			        axisPointer: {
+			            type: 'cross'
+			        }
+			    },
+			    legend: {
+			        data:['农村','城市']
+			    },
+			    xAxis: [
+			        {
+			            type: 'category',
+			            data: (function(){
+				            	var result = nest.map(n => n.name);
+				            	return result;
+				            }()).sort(function(a, b){return (+a.slice(0, -1)) - (+b.slice(0, -1))})
+			        }
+			    ],
+			    yAxis: [
+			        {
+			            type: 'value',
+			            //min: 0,
+			            //max: 250,
+			            position: 'left',
+			            axisLine: {
+			                lineStyle: {
+			                    color: '#5793f3'
+			                }
+			            },
+			            axisLabel: {
+			                formatter: '{value}'
+			            }
+			        }
+			    ],
+			    series: [
+			        {
+			            name:'农村',
+			            type:'bar',
+			            data: nest.map((ele) => {
+			            	return ele['values'][0]['values'].length;
+			            })
+			        },
+			        {
+			            name:'城市',
+			            type:'bar',
+			            data: nest.map((ele) =>{
+			            	return ele['values'][1]['values'].length;
+			            })
+			        }
+			    ]
+			};
+			ec.setOption(option);
+			this._chart = ec;
+		},
+		...mapActions([
+			'filterValue'
+		])
 
 	},
 
 	computed: {
-
+		vdata() {
+			return this.$store.state.data.data;
+		}
 	},
 
 	mounted(){
-		let ec = echarts.init(this.$el);
-		let option = {
-		    color: ['#5793f3', '#d14a61'],
-
-		    tooltip: {
-		        trigger: 'axis',
-		        axisPointer: {
-		            type: 'cross'
-		        }
-		    },
-		    grid: {
-		        right: '20%'
-		    },
-		    /*
-		    toolbox: {
-		        feature: {
-		            dataView: {show: true, readOnly: false},
-		            restore: {show: true},
-		            saveAsImage: {show: true}
-		        }
-		    },
-		    */
-		    legend: {
-		        data:['蒸发量','降水量']
-		    },
-		    xAxis: [
-		        {
-		            type: 'category',
-		            axisTick: {
-		                alignWithLabel: true
-		            },
-		            data: ['1月','2月','3月','4月','5月','6月','7月','8月','9月','10月','11月','12月']
-		        }
-		    ],
-		    yAxis: [
-		        {
-		            type: 'value',
-		            name: '蒸发量',
-		            min: 0,
-		            max: 250,
-		            position: 'left',
-		            axisLine: {
-		                lineStyle: {
-		                    color: '#5793f3'
-		                }
-		            },
-		            axisLabel: {
-		                formatter: '{value} ml'
-		            }
-		        },
-		        {
-		            type: 'value',
-		            name: '降水量',
-		            min: 0,
-		            max: 250,
-		            position: 'right',
-		            offset: 80,
-		            axisLine: {
-		                lineStyle: {
-		                    color: '#d14a61'
-		                }
-		            },
-		            axisLabel: {
-		                formatter: '{value} ml'
-		            }
-		        }
-		    ],
-		    series: [
-		        {
-		            name:'蒸发量',
-		            type:'bar',
-		            data:[2.0, 4.9, 7.0, 23.2, 25.6, 76.7, 135.6, 162.2, 32.6, 20.0, 6.4, 3.3]
-		        },
-		        {
-		            name:'降水量',
-		            type:'bar',
-		            yAxisIndex: 1,
-		            data:[2.6, 5.9, 9.0, 26.4, 28.7, 70.7, 175.6, 182.2, 48.7, 18.8, 6.0, 2.3]
-		        }
-		    ]
-		};
-		ec.setOption(option);
+		
 	}
 }
 

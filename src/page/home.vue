@@ -9,10 +9,10 @@
 				<PieItem></PieItem>
 			</div>
 			<div class="col-md-4">
-				<PolylineArea></PolylineArea>
+				<BarItem></BarItem>
 			</div>
 			<div class="col-md-4">
-				<BarItem></BarItem>
+				<PolylineArea></PolylineArea>
 			</div>
 
 		</div>

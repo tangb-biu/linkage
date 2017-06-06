@@ -7,13 +7,12 @@
 import echarts from 'echarts'
 import dataNest from '@/utils/nest'
 import common from '@/utils/common'
-import {FILTER_VALUE} from '@/store/mutation-types'
 import {mapActions} from 'vuex'
 export default {
 	name: 'ployline',
 	data() {
 		return {
-
+			_chart: ''
 		}
 	},
 
