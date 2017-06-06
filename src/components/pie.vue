@@ -28,6 +28,14 @@ export default {
 					return d[key];
 				})
 				.entries(this.vdata);
+			if(this._chart){
+				this._chart.setOption({
+					series: [{
+			        	data: nest,
+			        }]
+				})
+				return;
+			}
 			let ec = echarts.init(this.$el);
 			let option = {
 				title:{

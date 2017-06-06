@@ -7,6 +7,7 @@
 import echarts from 'echarts'
 import dataNest from '@/utils/nest'
 import common from '@/utils/common'
+import {FILTER_VALUE} from '@/store/mutation-types'
 
 export default {
 	name: 'ployline',
@@ -24,11 +25,29 @@ export default {
 
 	methods: {
 		createPolylineChart(){
+			let that = this;
+			var key = 'date';
 			let nest = dataNest()
 				.key(function(d) {
-					return d.date;
+					return d[key];
 				})
-				.entries(this.vdata.data);
+				.entries(this.vdata);
+			if(this._chart){
+				this._chart.setOption({
+					series: [{
+			        	data: nest,
+			        }],
+			        xAxis: {
+			        type: 'category',
+			        //axisLine: {onZero: false},
+			        data: (function(){
+			            	var result = nest.map(n => n.name);
+			            	return result;
+			            }()).sort(function(a, b){return (+a.slice(0, -1)) - (+b.slice(0, -1))})
+			    	},
+				})
+				return;
+			}
 			let ec = echarts.init(this.$el);
 			let option = {
 				title: {
@@ -43,7 +62,10 @@ export default {
 			    xAxis: {
 			        type: 'category',
 			        //axisLine: {onZero: false},
-			        data: (function(){let arr = [];for(let i=1; i<=12; i++){arr.push(i+'月')} return arr;}())
+			        data: (function(){
+			            	var result = nest.map(n => n.name);
+			            	return result;
+			            }()).sort(function(a, b){return (+a.slice(0, -1)) - (+b.slice(0, -1))})
 			    },
 			    yAxis: {
 	        		type: 'value',
@@ -67,11 +89,22 @@ export default {
 			    ]
 			}
 			ec.setOption(option);
+			ec.on('click', function(param){
+				that.filterData(key, param['name']);
+			})
+			this._chart = ec;
+		},
+		filterData(key,value) {
+			console.log(key, value, FILTER_VALUE);
+			this.$store.commit(FILTER_VALUE, {
+				key: key,
+				name: value
+			});
 		}
 	},
 	computed: {
 		vdata: function(){
-			return this.$store.state.data;
+			return this.$store.state.data.data;
 		}
 	},
 	mounted() {
