@@ -15,6 +15,7 @@ export default {
 	data(){
 		return {
 			_chart: '',
+			name: ''
 		}
 	},
 
@@ -42,18 +43,18 @@ export default {
 				let option = {
 					series: [
 				        {
-				            name:'农村',
+				            name: '农村',
 				            type:'bar',
-				            data: nest.map((ele) => {
+				            data: (that.name == '城市'|| !that.name) ? nest.map((ele) => {
 				            	return ele['values'][0] ? ele['values'][0]['values'].length : 0;
-				            })
+				            }): 0
 				        },
 				        {
 				            name:'城市',
 				            type:'bar',
-				            data: nest.map((ele) =>{
-				            	return ele['values'][1]? ele['values'][1]['values'].length : 0;
-				            })
+				            data: (that.name == '农村'|| !that.name) ? nest.map((ele) =>{
+				            	return ele['values'][that.name == '农村'?0:1]? ele['values'][that.name == '农村'?0:1]['values'].length : 0;
+				            }): 0
 				        }
 				    ],
 			        xAxis: {
@@ -127,6 +128,13 @@ export default {
 			    ]
 			};
 			ec.setOption(option);
+			ec.on('legendselectchanged', function(ev){
+				that.name = ev.name;
+				that.filterValue({
+					key: key2,
+					name: ev.name
+				})
+			})
 			this._chart = ec;
 		},
 		...mapActions([
