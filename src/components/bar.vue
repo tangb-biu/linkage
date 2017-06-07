@@ -39,10 +39,23 @@ export default {
 				.entries(this.vdata);
 			nest.sort(function(a, b){return (+a['key'].slice(0, -1)) - (+b['key'].slice(0, -1))});
 			if(this._chart){
-				this._chart.setOption({
-					series: [{
-			        	data: nest,
-			        }],
+				let option = {
+					series: [
+				        {
+				            name:'农村',
+				            type:'bar',
+				            data: nest.map((ele) => {
+				            	return ele['values'][0] ? ele['values'][0]['values'].length : 0;
+				            })
+				        },
+				        {
+				            name:'城市',
+				            type:'bar',
+				            data: nest.map((ele) =>{
+				            	return ele['values'][1]? ele['values'][1]['values'].length : 0;
+				            })
+				        }
+				    ],
 			        xAxis: {
 				        type: 'category',
 				        //axisLine: {onZero: false},
@@ -51,7 +64,8 @@ export default {
 				            	return result;
 				            }())
 			    	},
-				})
+				}
+				this._chart.setOption(option);
 				return;
 			}
 			let ec = echarts.init(this.$el);
