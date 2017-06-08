@@ -135,6 +135,32 @@ function extend(dest, src){
 	return result;
 
 }
+
+function strArrayIndexOf(arr, item) {
+	var index = -1;
+	for(var i=0; i<arr.length; i++) {
+		if(item === arr[i]) {
+			index = i;
+			break;
+		}
+	}
+	return index;
+}
+/*
+	去除src字符串数组中, omit包含的元素,
+*/
+function strArrayOmit(src, omit) {
+	var arr = deepCopy(src);
+	for(var i=0;i<omit.length; i++) {
+		for(var j=0; j<arr.length; j++) {
+			if(arr[j] == omit[i]) {
+				arr.splice(j, 1);
+				--j;
+			}
+		}
+	}
+}
+
 export default {
 	trim(str) {
 		if(str === null){
@@ -160,5 +186,7 @@ export default {
 		return flag;
 	},
 	deepCopy,
-	extend
+	extend,
+	strArrayIndexOf,
+	strArrayOmit
 }

@@ -15,7 +15,8 @@ export default {
 	data(){
 		return {
 			_chart: '',
-			name: ''
+			name: '',
+			legend: [],
 		}
 	},
 
@@ -28,8 +29,8 @@ export default {
 	methods: {
 		createBarChart() {
 			let that = this;
-			var key1 = 'date';
-			var key2 = 'register';
+			var key1 = 'register';
+			var key2 = 'date';
 			let nest = dataNest()
 				.key((d) => {
 					return d[key1];
@@ -38,30 +39,41 @@ export default {
 					return d[key2];
 				})
 				.entries(this.vdata);
-			nest.sort(function(a, b){return (+a['key'].slice(0, -1)) - (+b['key'].slice(0, -1))});
+			if(this.legend.length<1) {
+				this.legend = nest.map((n) => {return n['key']});
+			}
+			console.log(nest);
 			if(this._chart){
 				let option = {
-					series: [
-				        {
-				            name: '农村',
-				            type:'bar',
-				            data: (that.name == '城市'|| !that.name) ? nest.map((ele) => {
-				            	return ele['values'][0] ? ele['values'][0]['values'].length : 0;
-				            }): 0
-				        },
-				        {
-				            name:'城市',
-				            type:'bar',
-				            data: (that.name == '农村'|| !that.name) ? nest.map((ele) =>{
-				            	return ele['values'][that.name == '农村'?0:1]? ele['values'][that.name == '农村'?0:1]['values'].length : 0;
-				            }): 0
-				        }
-				    ],
+					series: (function(nest){
+				        	var arr = [];
+				        	var cache = [];
+			        		for(let j=0; j<nest.length; j++) {
+					        	arr.push({
+					            name: nest[j]['key'],
+					            type:'bar',
+					            data: nest[j]['values'].map((ele) => {
+						            	return ele['values'].length;
+						            })
+					            })
+					        	cache.push(nest[j]['key']);
+					        }
+
+					        let last = common.strArrayOmit(that.legend, cache);
+					        for(let i=0; i<last.length; i++) {
+					        	arr.push({
+						            name: last[i],
+						            type:'bar',
+						            data: []
+					        	});
+					        }
+					        return arr;
+				        }(nest)),
 			        xAxis: {
 				        type: 'category',
 				        //axisLine: {onZero: false},
 				        data: (function(){
-				            	var result = nest.map(n => n.name);
+				            	var result = nest ? nest[0]['values'].map(n => n.name) : [];
 				            	return result;
 				            }())
 			    	},
@@ -89,9 +101,9 @@ export default {
 			        {
 			            type: 'category',
 			            data: (function(){
-				            	var result = nest.map(n => n.name);
+				            	var result = nest ? nest[0]['values'].map(n => n.name) : [];
 				            	return result;
-				            }()).sort(function(a, b){return (+a.slice(0, -1)) - (+b.slice(0, -1))})
+				            }())
 			        }
 			    ],
 			    yAxis: [
@@ -110,31 +122,32 @@ export default {
 			            }
 			        }
 			    ],
-			    series: [
-			        {
-			            name:'农村',
-			            type:'bar',
-			            data: nest.map((ele) => {
-			            	return ele['values'][0]['values'].length;
-			            })
-			        },
-			        {
-			            name:'城市',
-			            type:'bar',
-			            data: nest.map((ele) =>{
-			            	return ele['values'][1]['values'].length;
-			            })
+			    series: (function(nest){
+		        	var arr = [];
+	        		for(let j=0; j<nest.length; j++) {
+			        	arr.push({
+				            name: nest[j]['key'],
+				            type:'bar',
+				            data: nest[j]['values'].map((ele) => {
+				            	return ele['values'].length;
+				            })
+			        	});
 			        }
-			    ]
+			        return arr;
+		        }(nest)),
 			};
 			ec.setOption(option);
 			ec.on('legendselectchanged', function(ev){
 				that.name = ev.name;
 				that.filterValue({
-					key: key2,
+					key: key1,
 					name: ev.name
 				})
+				if(!ev.selected[ev.name]) {
+					that.name = '';
+				}
 			})
+			ec.on('legendselectchanged')
 			this._chart = ec;
 		},
 		...mapActions([
