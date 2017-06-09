@@ -29,8 +29,8 @@ export default {
 					return d[key];
 				})
 				.entries(this.vdata);
-			if(this._chart){
-				this._chart.setOption({
+			if(this.$data._chart){
+				this.$data._chart.setOption({
 					series: [{
 			        	data: nest,
 			        }]
@@ -96,7 +96,7 @@ export default {
 					name: param['name']
 				});
 			});
-			this._chart = ec;
+			this.$data._chart = ec;
 		},
 		changeData() {
 
