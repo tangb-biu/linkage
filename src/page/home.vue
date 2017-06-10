@@ -2,6 +2,9 @@
 	<div>
 		<HeaderItem></HeaderItem>
 		<div class="content row">
+			<div class="col-md-12">
+				<ChooseBar></ChooseBar>
+			</div>
 			<div class="col-md-4">
 				<PolylineItem></PolylineItem>
 			</div>
@@ -27,6 +30,7 @@ import PolylineItem from '@/components/polyline'
 import PieItem from '@/components/pie'
 import PolylineArea from '@/components/polylineArea'
 import BarItem from '@/components/bar'
+import ChooseBar from '@/components/chooseBar'
 import patientApi from '@/api/patient'
 import { SET_DATA } from '@/store/mutation-types'
 
@@ -35,6 +39,7 @@ export default {
 	components: {
 		HeaderItem,
 		FooterItem,
+		ChooseBar,
 		PolylineItem,
 		PieItem,
 		PolylineArea,
