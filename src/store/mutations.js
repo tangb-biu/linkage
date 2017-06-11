@@ -1,4 +1,4 @@
-import { FILTER_VALUE, SET_DATA } from './mutation-types'
+import { FILTER_VALUE, SET_DATA} from './mutation-types'
 import common from '@/utils/common'
 export default {
 	[FILTER_VALUE](state, filter) {

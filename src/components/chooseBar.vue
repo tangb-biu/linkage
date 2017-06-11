@@ -1,6 +1,6 @@
 <template>
 	<div class="btn-group" role="group">
-		<button type="button" class="btn btn-default" v-for="item in filters">{{ item }}</button>
+		<button type="button" class="btn btn-default" v-for="item in filters" @click="removeFilter(item)">{{ item[1] }}</button>
 	</div>
 </template>
 
@@ -14,7 +14,12 @@ export default {
 	},
 
 	methods: {
-
+		removeFilter(item) {
+			this.$store.dispatch('filterValue',{
+				key: item[0],
+				name: item[1]
+			})
+		}
 	},
 
 	computed: {
